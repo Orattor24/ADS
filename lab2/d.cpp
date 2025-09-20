@@ -1,5 +1,7 @@
 #include <iostream>
 #include <utility>
+#include <set>
+#include <vector>
 using namespace std;
 
 class Node {
@@ -120,15 +122,42 @@ int main() {
     cin >> n;
     int temp;
     int arr[n];
+    set <int, greater<int>> mode;
+    vector <int> heeeeeelpppp;
 
     for(int i =0; i <n; i++){
         cin >> temp;
         arr[i] = temp;
     }
+     int createst = 0;
     for(int i =0; i < n; i++){
-        list.push_back({arr[i],i});
+        int kol = 0;
+        for(int j =0; j<n; j++){
+            if(arr[i] == arr[j]){
+                kol++;
+            }
+        }
+        list.push_back({arr[i],kol});
     }
-
-    list.print();
+    for(int i = 0; i < n;i++){
+        if(list.front->data.second > createst){
+            createst = list.front->data.second;
+        }
+        list.push_back(list.front->data);
+        list.pop_front();
+    }
+    for(int i=0; i < n; i++){
+        if(list.front->data.second == createst){
+            mode.insert(list.front->data.first);
+        }
+        list.pop_front();
+    }
+    for (const int& s : mode) {
+        cout << s << " ";
+    }
+    /*for(int i =0; i< n; i++){
+        mode.insert(heeeeeelpppp.begin(), heeeeeelpppp.end());
+    }*/
+    //list.print();
     return 0;
 }
