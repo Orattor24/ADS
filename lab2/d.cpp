@@ -1,7 +1,6 @@
 #include <iostream>
 #include <utility>
 #include <set>
-#include <vector>
 using namespace std;
 
 class Node {
@@ -123,7 +122,6 @@ int main() {
     int temp;
     int arr[n];
     set <int, greater<int>> mode;
-    vector <int> heeeeeelpppp;
 
     for(int i =0; i <n; i++){
         cin >> temp;
@@ -155,9 +153,5 @@ int main() {
     for (const int& s : mode) {
         cout << s << " ";
     }
-    /*for(int i =0; i< n; i++){
-        mode.insert(heeeeeelpppp.begin(), heeeeeelpppp.end());
-    }*/
-    //list.print();
     return 0;
 }
