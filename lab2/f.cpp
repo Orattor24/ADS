@@ -1,14 +1,12 @@
 #include <iostream>
-#include <utility>
-#include <set>
 using namespace std;
 
 class Node {
     public:
-    pair <int, int> data;
+    int data;
     Node *next, *prev;
 
-    Node(pair <int, int> data) {
+    Node(int data) {
         this->data = data;
         this->next = NULL;
         this->prev = NULL;
@@ -24,7 +22,7 @@ class LinkedList {
         front = NULL;
     }
 
-    void push_back(pair <int, int> data) {
+    void push_back(int data) {
         Node *node = new Node(data);
         if (tail == NULL) {
             tail = node;
@@ -36,7 +34,7 @@ class LinkedList {
         }
     }
 
-    void push_front(pair <int, int> data) {
+    void push_front(int data) {
         Node *node = new Node(data);
         if (front == NULL) {
             tail = node;
@@ -84,13 +82,13 @@ class LinkedList {
     void print() {
         Node *node = front;
         while (node != NULL) {
-            cout << node->data.first << " " << node->data.second << "\n";
+            cout << node->data << " ";
             node = node->next;
         }
         cout << endl;
     }
 
-    Node* find_node(pair <int, int> data) {
+    Node* find_node(int data) {
         Node *node = front;
         while (node != NULL) {
             if (node->data == data)
@@ -100,7 +98,7 @@ class LinkedList {
         return NULL;
     }
 
-    void insert_node(Node *node1, pair <int, int> data) {
+    void insert_node(Node *node1, int data) {
         Node *node = new Node(data);
         if (node1 == tail) 
             push_back(data);
@@ -113,45 +111,29 @@ class LinkedList {
         }
     }
 };
-
-int main() {
+int main(){
     LinkedList list;
-   
     int n;
     cin >> n;
-    int temp;
-    int arr[n];
-    set <int, greater<int>> mode;
-
-    for(int i =0; i <n; i++){
+    for(int i =0; i<n; i++){
+        int temp;
         cin >> temp;
-        arr[i] = temp;
+        list.push_back(temp);
     }
-    int createst = 0;
-    for(int i =0; i < n; i++){
-        int kol = 0;
-        for(int j =0; j<n; j++){
-            if(arr[i] == arr[j]){
-                kol++;
-            }
-        }
-        list.push_back({arr[i],kol});
-    }
-    for(int i = 0; i < n;i++){
-        if(list.front->data.second > createst){
-            createst = list.front->data.second;
-        }
+
+    int ai, position;
+    cin >> ai;
+    cin >> position;
+    int second_post = position;
+    while(position--){
         list.push_back(list.front->data);
         list.pop_front();
     }
-    for(int i=0; i < n; i++){
-        if(list.front->data.second == createst){
-            mode.insert(list.front->data.first);
-        }
-        list.pop_front();
+    list.push_front(ai);
+    
+    while(second_post--){
+        list.push_front(list.tail->data);
+        list.pop_back();
     }
-    for (const int& s : mode) {
-        cout << s << " ";
-    }
-    return 0;
+    list.print();
 }
