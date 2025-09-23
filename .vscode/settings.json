@@ -59,6 +59,11 @@
   "files.associations": {
     "iostream": "cpp",
     "ostream": "cpp",
-    "random": "cpp"
+    "random": "cpp",
+    "array": "cpp",
+    "deque": "cpp",
+    "forward_list": "cpp",
+    "list": "cpp",
+    "vector": "cpp"
   }
 }
