@@ -30,7 +30,7 @@ long long findMinMaxsum(const vector<long long>&a, long long k){
     long long right = accumulate(a.begin(),a.end(), 0LL);
     
     while(left <right){
-        long long mid = left +(right-left)/2;
+        long long mid = (right+left)/2;
 
         if(canSplit(a, mid, k)){
             right =mid;
