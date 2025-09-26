@@ -7,7 +7,6 @@ int binary_search_solution(const vector<int>& chisla, int x) {
     int n = chisla.size();
     vector<long long> prefix(n + 1, 0);
     
-    // Создаем префиксные суммы
     for (int i = 0; i < n; i++) {
         prefix[i + 1] = prefix[i] + chisla[i];
     }
@@ -18,12 +17,11 @@ int binary_search_solution(const vector<int>& chisla, int x) {
         int left = 0, right = i;
         int best = -1;
         
-        // Бинарный поиск по начальной позиции
         while (left <= right) {
             int mid = (left + right) / 2;
             if (prefix[i + 1] - prefix[mid] >= x) {
                 best = mid;
-                left = mid + 1; // ищем более короткий подмассив
+                left = mid + 1;
             } else {
                 right = mid - 1;
             }

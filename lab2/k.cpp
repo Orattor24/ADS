@@ -122,8 +122,6 @@ int main() {
                     duplicates.push_back(str);
                 }
             }
-            
-            
             if (list.front != NULL) {
                 cout << list.front->data << " ";
             } else {
