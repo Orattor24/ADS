@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <queue>
 using namespace std;
 
 class Node {
@@ -144,58 +146,41 @@ class BST {
             return 0;
         return 1 + countNodes(node->left) + countNodes(node->right);
     }
+
+    void count_sum(Node *node, int level, vector<int> &sums) {
+        
+        if (node == NULL) 
+            return;
+        
+        if (level >= sums.size()) {
+            sums.push_back(0);
+        }
+        
+        sums[level] += node->data;
+        
+        count_sum(node->left, level + 1, sums);
+        count_sum(node->right, level + 1, sums);
+    }
 };
 
 int main() {
     BST *bst = new BST();
     
-    // Insert nodes
-    bst->root = bst->insert(bst->root, 10);
-    bst->root = bst->insert(bst->root, 15);
-    bst->root = bst->insert(bst->root, 16);
-    bst->root = bst->insert(bst->root, 13);
-    bst->root = bst->insert(bst->root, 12);
-    bst->root = bst->insert(bst->root, 14);
-    bst->root = bst->insert(bst->root, 9);
-    bst->root = bst->insert(bst->root, 8);
-    bst->root = bst->insert(bst->root, 10);  // Duplicate - goes to left
-    bst->root = bst->insert(bst->root, 10);  // Another duplicate
-    bst->root = bst->insert(bst->root, 17);
+    int n;
+    cin >> n;
 
-    cout << "In-order traversal (sorted): ";
-    bst->inOrder(bst->root);
-    cout << endl;
+    for(int i=0; i<n; i++){
+        int temp;
+        cin >> temp;
 
-    cout << "Pre-order traversal: ";
-    bst->preOrder(bst->root);
-    cout << endl;
-
-    cout << "Post-order traversal: ";
-    bst->postOrder(bst->root);
-    cout << endl;
-
-    // Find min and max
-    Node *node_min = bst->findMin(bst->root);
-    Node *node_max = bst->findMax(bst->root);
-    cout << "Min: " << node_min->data << ", Max: " << node_max->data << endl;
-
-    // Search for a value
-    Node *found = bst->search(bst->root, 13);
-    if (found)
-        cout << "Found: " << found->data << endl;
-    else
-        cout << "Not found" << endl;
-
-    // Tree statistics
-    cout << "Tree height: " << bst->getHeight(bst->root) << endl;
-    cout << "Total nodes: " << bst->countNodes(bst->root) << endl;
-
-    // Delete a node
-    cout << "Deleting node 13..." << endl;
-    bst->root = bst->deleteNode(bst->root, 13);
-    cout << "In-order after deletion: ";
-    bst->inOrder(bst->root);
-    cout << endl;
-
-    return 0;
+        bst->root = bst->insert(bst->root, temp);
+    }
+    int size =bst->getHeight(bst->root);
+    cout << size << endl;
+    //bst->inOrder(bst->root);
+    vector<int> sums;
+    bst->count_sum(bst->root, 0 , sums);
+    for(int i=0; i< sums.size(); i++){
+        cout << sums[i] << " ";
+    }
 }
