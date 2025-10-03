@@ -1,8 +1,6 @@
 #include <iostream>
-#include <cmath>
-#include <algorithm>
 #include <vector>
-
+#include <algorithm>
 using namespace std;
 
 class Node {
@@ -20,8 +18,7 @@ class Node {
 class BST {
     public:
     Node *root;
-
-    BST() {
+    BST() { 
         root = NULL;
     }
 
@@ -40,16 +37,6 @@ class BST {
         return node;
     }
 
-    // In-order traversal - gives sorted output
-    void inOrder(Node *node) {
-        if (node == NULL)
-            return;
-        inOrder(node->left);
-        cout << node->data << " ";
-        inOrder(node->right);
-    }
-
-    // Pre-order traversal
     void preOrder(Node *node) {
         if (node == NULL)
             return;
@@ -67,118 +54,36 @@ class BST {
         cout << node->data << " ";
     }
 
-    // Find minimum element - leftmost node
-    Node *findMin(Node *node) {
-        if (node == NULL)
-            return NULL;
-        while (node->left != NULL)
-            node = node->left;
-        return node;
-    }
-
-    // Find maximum element - rightmost node
-    Node *findMax(Node *node) {
-        if (node == NULL)
-            return NULL;
-        while (node->right != NULL)
-            node = node->right;
-        return node;
-    }
-
-    // Search for a value
-    Node *search(Node *node, int data) {
-        if (node == NULL || node->data == data)
-            return node;
-        
-        if (data < node->data)
-            return search(node->left, data);
-        else
-            return search(node->right, data);
-    }
-
-    // Delete operation - most complex
-    Node *deleteNode(Node *node, int data) {
-        if (node == NULL)
-            return NULL;
-            
-        if (data < node->data)
-            node->left = deleteNode(node->left, data);
-        else if (data > node->data)
-            node->right = deleteNode(node->right, data);
-        else {
-            // Node to be deleted found
-            
-            // Case 1: Node has no children (leaf node)
-            if (node->right == NULL && node->left == NULL) {
-                delete node;
-                node = NULL;
-            }
-            // Case 2: Node has only right child
-            else if (node->left == NULL) {
-                Node *temp = node;
-                node = node->right;
-                delete temp;
-            }
-            // Case 3: Node has only left child
-            else if (node->right == NULL) {
-                Node *temp = node;
-                node = node->left;
-                delete temp;
-            }
-            // Case 4: Node has both children
-            else {
-                Node *tmp = findMax(node->left);  // Find inorder predecessor
-                node->data = tmp->data;           // Replace data
-                node->left = deleteNode(node->left, tmp->data);  // Delete predecessor
-            }
-        }
-        return node;
-    }
-
-    // Helper function to get height of tree
-    int getHeight(Node *node) {
-        if (node == NULL)
-            return 0;
-        return 1 + max(getHeight(node->left), getHeight(node->right));
-    }
-
-    // Count total nodes in tree
-    int countNodes(Node *node) {
-        if (node == NULL)
-            return 0;
-        return 1 + countNodes(node->left) + countNodes(node->right);
-    }
-
-    void balanced_order(vector<int>& arr, int l, int r, vector<int>& result) {
-        
+    void buildOrder(vector<int> &arr, int l, int r, vector<int> &order) {
+    
         if (l > r) {
-            return;
+        return;
         }
-        int mid = (l + r) / 2;
-        result.push_back(arr[mid]);
-        balanced_order(arr, l, mid - 1, result); 
-        balanced_order(arr, mid + 1, r, result); 
-    }
+        int mid = (r+l) / 2;
+
+        order.push_back(arr[mid]);
+
+        buildOrder(arr, l, mid - 1, order);
+
+        buildOrder(arr, mid + 1, r, order);
+        }   
 };
 
 int main() {
-    BST *bst = new BST();
-
     int n;
     cin >> n;
-
-    vector<int> arr(pow(2, n)-1);
-    for(int i=0; i < pow(2, n)-1; i++){
+    vector<int> arr(n);
+    for (int i = 0; i < n; i++) {
         cin >> arr[i];
     }
-    
-    sort(arr.begin(), arr.end());
 
-    vector<int> result;
+    sort(arr.begin(), arr.end()); 
+    vector<int> order;
+   
 
-    bst->balanced_order(arr, 0, arr.size() - 1, result);
+    BST *bst = new BST();
+    bst->buildOrder(arr, 0, n - 1, order); 
 
-    for (int i : result) {
-        cout << i << " ";
-    }
+    for (int x : order) cout << x << " ";
+    cout << endl;
 }
