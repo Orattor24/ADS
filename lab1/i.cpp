@@ -22,7 +22,6 @@ int main(){
         sakayanagi.pop();
         int j = katsuragi.front();
         katsuragi.pop();
-
         if (i < j) {
             sakayanagi.push(i + n);
         } else {

@@ -2,7 +2,7 @@
 #include <stack>
 
 using namespace std;
-string help(string &s){
+string help(string &s){ //изучить ЧТО ТАКОЕ &
     string heeeelp;
     for(char ch : s){
         if(ch =='#'){

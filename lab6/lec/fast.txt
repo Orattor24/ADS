@@ -1,0 +1,5 @@
+quicksort O(n^2)
+mergesort 
+heapsort
+
+O(nlogn)

@@ -88,7 +88,7 @@ class LinkedList {
         }
         return NULL;
     }
-    //Новая функция для опредления есть ли определенная дата в списке
+
     bool contains(string data) {
         return find_node(data) != NULL;
     }
@@ -102,22 +102,21 @@ int main() {
         int n;
         cin >> n;
         
-        LinkedList list; //выяви тут первое появление символа
-        LinkedList duplicates;       // выяви есть ли дубликаты
+        LinkedList list; 
+        LinkedList duplicates;      
         
         for (int i = 0; i < n; i++) {
             string str;
             cin >> str;
             
-            // Если он впервые появился
             if (!list.contains(str) && !duplicates.contains(str)) {
                 list.push_back(str);
             } 
-            // если все таки появился в списке
+           
             else if (list.contains(str)) {
                 Node *toRemove = list.find_node(str);
                 list.del_node(toRemove);
-                // добавить дубликат в дубликат 
+                
                 if (!duplicates.contains(str)) {
                     duplicates.push_back(str);
                 }

@@ -1,28 +1,35 @@
 #include <iostream>
+#include <vector>
 #include <stack>
 using namespace std;
 
-int main() {
-    int queue;
-    cin >> queue;
+int main(){
+    int n;
+    cin >> n;
+    vector <int> ages(n) ;
+    vector <int> result(n);
+    stack <int> st;
 
-    while (queue--) {
-        int l, n;
-        cin >> n; // количество чисел для текущей "очереди"
+    for (int i = 0; i < n; i++){
+        cin >> ages[i];
+    }
 
-        stack<int> st;
-
-        // читаем числа и кладем в стек
-        for (int i = 0; i < n; i++) {
-            cin >> l;
-            st.push(l);
-        }
-
-        // выводим все элементы стека (в порядке сверху вниз)
-        while (!st.empty()) {
-            cout << st.top() << " ";
+    for(int i =0; i < n; i++){
+        while (!st.empty() && st.top() > ages[i]){
             st.pop();
+
         }
-        cout << endl;
+
+        if (st.empty()){
+            result[i] = -1;
+        }
+        else{
+            result[i] = st.top();
+        }
+
+        st.push(ages[i]);
+    }
+    for(int i =0; i <n ; i++){
+        cout << result[i] << ' ';
     }
 }

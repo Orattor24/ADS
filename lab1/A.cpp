@@ -2,46 +2,38 @@
 #include <queue>
 #include <vector>
 
-
 using namespace std;
 
-int main(){
-    int test;
-    cin >> test;
-    int del = 1;
-    while(test--){
+int main() {
+    int num_of_tests;
+    cin >> num_of_tests;
+    vector<int> sizes(num_of_tests);
+
+    while(num_of_tests--) {
         int size;
         cin >> size;
-        queue <int> cards;
-        vector <int> result(size);
+        queue<int> cards;
+        vector<int> result(size); 
+        int del = 1;
 
-
-        for(int i = 1; i <= size; i++){
+        for (int i = 1; i <= size; i++) {
             cards.push(i);
-            cout << cards.back()<< " ";
-            
         }
-        cout << endl;
 
-        
-
-        for(int i = 1; i <= size; i++){
-            for(int j = 0; j <= del; j++){
+        while (!cards.empty()) {
+            for (int j = 0; j < del; j++) {
                 cards.push(cards.front());
+                cards.pop();
             }
-            cout << cards.front() << " ";
-            del++;
-            /*int n = cards.front();
-            result[n] = del;
-            cout << result[i] <<" ";
+            result[cards.front() - 1] = del;
+            del++; 
             cards.pop();
-            del ++;
-            cout << del<< " ";*/
-
-            
         }
-        
 
+        for (int i = 0; i < size; i++) {
+            cout << result[i] << " ";
+        }
+        cout << "\n";
     }
-    //cout << del;
+    return 0;
 }

@@ -37,12 +37,10 @@ public:
         if (front == nullptr) {
             return; 
         }
-        Node *temp = front;
         front = front->next;
         if (front == nullptr) {
             tail = nullptr;
         }
-        delete temp;
         sz--;
     }
 
@@ -72,6 +70,7 @@ int main() {
     q.push(10);
     q.push(20);
     q.push(30);
+    q.pop();
 
     cout << "вперед: " << q.Front() << endl;
     cout << "Хвост: " << q.Tail();
