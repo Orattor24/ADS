@@ -4,34 +4,32 @@
 
 using namespace std;
 
-float a[100000];
-string second_name[100000];
-string first_name[100000];
+double a[1000005];
+string second_name[1000005];
+string first_name[1000005];
 
 int gpa(){
     int sum = 0;
     int offset =0;
 };
-
 void quick_sort(int l, int r){
-    float p = a[ (l + r) / 2 ];
-    string p_second = second_name[(l+r)/2];
-    string p_first = first_name[(l+r)/2];
+
 
     int i = l;
     int j = r;
+    double p = a[(l + r) / 2];
+    string p_second = second_name[(l + r) / 2];
+    string p_first = first_name[(l + r) / 2];
 
-    while(i<=j){
 
-
-        while(a[i] < p or (a[i] == p and second_name[i] < p_second) or (a[i] == p and second_name[i] == p_second and first_name[i] < p_first)) {
+    while (i <= j){
+        while (a[i] < p || (a[i] == p && (second_name[i] < p_second || (second_name[i] == p_second && first_name[i] < p_first)))) {
             i++;
         }
-         while(a[j] > p or (a[j] == p and second_name[j] > p_second) or (a[j] == p and second_name[j] == p_second and first_name[j] > p_first)) {
+        while (a[j] > p || (a[j] == p && (second_name[j] > p_second || (second_name[j] == p_second && first_name[j] > p_first)))) {
             j--;
         }
-
-        if (i <= j) {
+        if (i <= j){
             swap(a[i], a[j]);
             swap(second_name[i], second_name[j]);
             swap(first_name[i], first_name[j]);
@@ -40,11 +38,12 @@ void quick_sort(int l, int r){
         }
     }
 
-    if(l < j){
-        quick_sort(l, j);
-    }
-    if(i<r){
-        quick_sort(i, r);
+    if (j - l < r - i) {
+        if(l < j) quick_sort(l, j);
+        if(i < r) quick_sort(i, r);
+    } else {
+        if(i < r) quick_sort(i, r);
+        if(l < j) quick_sort(l, j);
     }
 }
 
@@ -58,7 +57,7 @@ int main(){
         int m;
         cin >> m;
 
-        float sum = 0;
+        double sum = 0;
         int pomogite = 0;
 
         for(int j = 0; j < m; j++){
