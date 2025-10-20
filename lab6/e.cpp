@@ -3,24 +3,27 @@
 
 using namespace std;
 
-vector<vector<int>> a;
+int a[1000][1000];
+int temp[1000];
+
 void quick_sort(int l, int r){
-    int p = a[ (l + r) / 2 ];
+    int p = temp[ (l + r) / 2 ];
     int i = l;
     int j = r;
 
-    while(i<j){
+    while(i<=j){
 
 
-        while(a[i] < p){
+        while(temp[i] < p){
             i++;
         }
-        while(a[j] > p ){
+        while(temp[j] > p ){
             j--;
         }
 
         if (i <= j) {
-            swap(a[i], a[j]);
+            swap(temp[i], temp[j]);
+
             i++;
             j--;
         }
@@ -37,17 +40,30 @@ void quick_sort(int l, int r){
 int main(){
     int shir, dlin;
     cin >> shir >> dlin;
-    int n = shir * dlin;
 
-
-    for(int i=0; i < n; i++){
-        cin >> a[i];
+    for(int i=0; i < shir; i++){
+        for(int j = 0; j < dlin ; j++){
+            cin >> a[i][j];
+        }
     }
-    quick_sort(0, n-1);
+
+   for(int col = 0; col < dlin; col++){
+    for(int row = 0; row < shir; row++){
+        temp[row] = a[row][col];
+    }
+
+    quick_sort(0, shir - 1);
+
+    for(int row = 0; row < shir; row++){
+        a[row][col] = temp[shir - 1 - row];
+    }
+}
+
+
 
     for(int i=0; i < shir; i++){
         for(int j = 0; j <  dlin; j++){
-            cout << a[j] << " ";
+            cout << a[i][j] << " ";
         }
         cout << endl;
         
